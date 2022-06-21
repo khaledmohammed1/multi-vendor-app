@@ -4,8 +4,19 @@ import 'package:get/get.dart';
 
 import 'bannerController.dart';
 
-class BannerWidget extends StatelessWidget {
-  const BannerWidget({Key? key}) : super(key: key);
+class BannerWidget extends StatefulWidget {
+  BannerController bannerController = BannerController();
+
+   BannerWidget({Key? key}) : super(key: key){
+   bannerController.getBanners();
+  }
+  @override
+  State<BannerWidget> createState() => _BannerWidgetState();
+}
+
+class _BannerWidgetState extends State<BannerWidget> {
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,34 +33,15 @@ class BannerWidget extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: PageView(
+              child: PageView.builder(
+                itemCount: controller.bannerImages.length,
                 onPageChanged: (val) {
                   controller.onPageChange(val.toDouble());
                 },
                 physics: const BouncingScrollPhysics(),
-                children: const [
-                  Center(
-                    child: Text(
-                      "Banner 1",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "Banner 2",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Center(
-                    child: Text(
-                      "Banner 3",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
+                itemBuilder: (BuildContext context, int index) {
+                  return Image.network(controller.bannerImages[index],fit: BoxFit.cover,);
+                },
               ),
             ),
           ),
@@ -69,31 +61,28 @@ class DotsIndicatorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BannerController>(
-      init: BannerController(),
-      builder: (controller) {
-        return Positioned(
-          bottom: 20,
-          child: Row(
-            children: [
-              SizedBox(
-                width:MediaQuery.of(context).size.width,
-                child: DotsIndicator(
-                  position: controller.bannerPosition,
-                  dotsCount: 3,
-                  decorator:  DotsDecorator(
-                    spacing: const EdgeInsets.all(2),
-                    size: const Size.square(6),
-                    activeSize: const Size(12,6),
-                    activeShape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4)
-                    )
+        init: BannerController(),
+        builder: (controller) {
+          return Positioned(
+            bottom: 20,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: DotsIndicator(
+                    position: controller.bannerPosition,
+                    dotsCount: 3,
+                    decorator: DotsDecorator(
+                        spacing: const EdgeInsets.all(2),
+                        size: const Size.square(6),
+                        activeSize: const Size(12, 6),
+                        activeShape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4))),
                   ),
                 ),
-              ),
-            ],
-          ),
-        );
-      }
-    );
+              ],
+            ),
+          );
+        });
   }
 }

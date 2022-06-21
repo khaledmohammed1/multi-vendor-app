@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
+
 import '../Widgets//bannerWidget/banner_widget.dart';
 import '../Widgets/category_widget/category_widget.dart';
 import '../Widgets/highlights/brand_highlight.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen(
-      {Key? key}) : super(key: key);
-
+   HomeScreen(
+      {Key? key}) : super(key: key){
+   }
   @override
   Widget build(BuildContext context) {
 
@@ -32,11 +33,11 @@ class HomeScreen extends StatelessWidget {
               ListView(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  children: const [
-                  SearchWidget(),
+                  children:  [
+                  const SearchWidget(),
                     BannerWidget(),
-                   BrandHighlights(),
-                    CategoryWidget(),
+                    const BrandHighlights(),
+                    const CategoryWidget(),
                 ],
               ),
             ],
