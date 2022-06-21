@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import 'bannerController.dart';
 
+// ignore: must_be_immutable
 class BannerWidget extends StatefulWidget {
   BannerController bannerController = BannerController();
 
@@ -71,7 +72,7 @@ class DotsIndicatorWidget extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   child: DotsIndicator(
                     position: controller.bannerPosition,
-                    dotsCount: 3,
+                    dotsCount: controller.bannerImages.length,
                     decorator: DotsDecorator(
                         spacing: const EdgeInsets.all(2),
                         size: const Size.square(6),
