@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,17 +9,15 @@ import 'bannerController.dart';
 class BannerWidget extends StatefulWidget {
   BannerController bannerController = BannerController();
 
-   BannerWidget({Key? key}) : super(key: key){
-   bannerController.getBanners();
+  BannerWidget({Key? key}) : super(key: key) {
+    bannerController.getBanners();
   }
+
   @override
   State<BannerWidget> createState() => _BannerWidgetState();
 }
 
 class _BannerWidgetState extends State<BannerWidget> {
-
-
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<BannerController>(
@@ -34,16 +33,26 @@ class _BannerWidgetState extends State<BannerWidget> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: PageView.builder(
-                itemCount: controller.bannerImages.length,
-                onPageChanged: (val) {
-                  controller.onPageChange(val.toDouble());
-                },
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  return Image.network(controller.bannerImages[index],fit: BoxFit.cover,);
-                },
-              ),
+              child: controller.loading.value
+                  ? Container()
+                  : PageView.builder(
+                      itemCount: controller.bannerImages.length,
+                      onPageChanged: (val) {
+                        controller.onPageChange(val.toDouble());
+                      },
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        return CachedNetworkImage(
+                          imageUrl: controller.bannerImages[index],
+                          fit: BoxFit.fill,
+                          placeholder: (context, url) => Center(
+                              child: CircularProgressIndicator(
+                            color: Theme.of(context).primaryColor,
+                          )
+                          ),
+                        );
+                      },
+                    ),
             ),
           ),
           // const DotIndicator(),
@@ -70,16 +79,18 @@ class DotsIndicatorWidget extends StatelessWidget {
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  child: DotsIndicator(
-                    position: controller.bannerPosition,
-                    dotsCount: controller.bannerImages.length,
-                    decorator: DotsDecorator(
-                        spacing: const EdgeInsets.all(2),
-                        size: const Size.square(6),
-                        activeSize: const Size(12, 6),
-                        activeShape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4))),
-                  ),
+                  child: controller.bannerImages.isEmpty
+                      ? Container()
+                      : DotsIndicator(
+                          position: controller.bannerPosition,
+                          dotsCount: controller.bannerImages.length,
+                          decorator: DotsDecorator(
+                              spacing: const EdgeInsets.all(2),
+                              size: const Size.square(6),
+                              activeSize: const Size(12, 6),
+                              activeShape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4))),
+                        ),
                 ),
               ],
             ),

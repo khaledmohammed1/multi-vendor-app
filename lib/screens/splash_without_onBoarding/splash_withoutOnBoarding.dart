@@ -17,7 +17,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
   @override
   void initState() {
     Timer(
-      const Duration(seconds: 1),
+      const Duration(milliseconds: 50),
           () => Get.offAll(  const ControllScreen()),
     );
     super.initState();

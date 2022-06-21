@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multi_vendor_shop_app/helper/firebase_services/firebase_services.dart';
 
@@ -6,6 +6,8 @@ import 'package:multi_vendor_shop_app/helper/firebase_services/firebase_services
 final FireBaseServices _services = FireBaseServices();
 
 class BannerController extends GetxController {
+  ValueNotifier<bool> get loading => _loading;
+  ValueNotifier<bool> _loading = ValueNotifier(false);
 
   BannerController() {
     getBanners();
@@ -24,13 +26,14 @@ class BannerController extends GetxController {
 
 
   getBanners() {
-
-    FireBaseServices().getBanners().then((value) {
+    _loading.value = true;
+    _services.getBanners().then((value) {
       for(int i=0 ;i<value.docs.length;i++){
         _bannerImages.add(value.docs[i]['image']);
       }
       print(_bannerImages);
       print(_bannerImages.length);
+      _loading.value = false;
       update();
     });
   }
