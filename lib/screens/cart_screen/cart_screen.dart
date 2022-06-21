@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../Widgets/bottom_nav_bar/bottom_nav_bar.dart';
 
 
 class CartScreen extends StatelessWidget {
@@ -10,12 +9,11 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: []);
-    return  SafeArea(
+    return  const SafeArea(
         child: Scaffold(
-          body: const Center(
+          body:  Center(
             child: Text("CartScreen"),
           ),
-          bottomNavigationBar: bottomNavigationBar(),
         ),
     );
   }

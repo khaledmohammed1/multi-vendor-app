@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../Widgets/bottom_nav_bar/bottom_nav_bar.dart';
-
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -10,12 +8,11 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: []);
 
-    return  SafeArea(
+    return  const SafeArea(
         child: Scaffold(
-      body: const Center(
+      body:  Center(
         child: Text("ProfileScreen"),
       ),
-          bottomNavigationBar: bottomNavigationBar(),
         ),
     );
   }

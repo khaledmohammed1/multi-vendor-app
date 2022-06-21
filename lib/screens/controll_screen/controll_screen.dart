@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../controllers/controllController.dart';
+import '../Widgets/bottom_nav_bar/bottom_nav_bar.dart';
 
 // ignore: must_be_immutable
 class ControllScreen extends StatefulWidget {
@@ -19,6 +20,7 @@ class _ControllScreenState extends State<ControllScreen> {
       init: Get.put(ControlViewModel()),
       builder:(controller)=> Scaffold(
         body: controller.currentScreen,
+        bottomNavigationBar: bottomNavigationBar(),
       ),
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../Widgets//bannerWidget/banner_widget.dart';
-import '../Widgets/bottom_nav_bar/bottom_nav_bar.dart';
 import '../Widgets/category_widget/category_widget.dart';
 import '../Widgets/highlights/brand_highlight.dart';
 
@@ -43,7 +42,6 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        bottomNavigationBar: bottomNavigationBar(),
       ),
     );
   }

@@ -20,7 +20,6 @@ class CategoryWidget extends StatelessWidget {
         color: Colors.white,
         child: Column(
           children: [
-
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Align(
@@ -35,7 +34,6 @@ class CategoryWidget extends StatelessWidget {
                 ),
               ),
             ),
-
             SizedBox(
               height: 45,
               child: Row(
@@ -43,34 +41,33 @@ class CategoryWidget extends StatelessWidget {
                   Expanded(
                     child: GetBuilder<CategoryController>(
                       init: CategoryController(),
-                      builder: (controller) => ListView.builder(
+                      builder: (controller) =>
+                          ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: categoryLabel.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: const EdgeInsets.only(right: 8, bottom: 8),
-                            child: Expanded(
-                              child: ActionChip(
-                                padding: EdgeInsets.zero,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                backgroundColor:
-                                    controller.categoryPosition == index
-                                        ? Theme.of(context).primaryColor
-                                        : Colors.grey,
-                                label: Text(
-                                  categoryLabel[index],
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: controller.categoryPosition == index
-                                          ? Colors.white
-                                          : Colors.black),
-                                ),
-                                onPressed: () {
-                                  controller.onChange(index.toDouble());
-                                },
+                            child: ActionChip(
+                              padding: EdgeInsets.zero,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
                               ),
+                              backgroundColor:
+                                  controller.categoryPosition == index
+                                      ? Theme.of(context).primaryColor
+                                      : Colors.grey,
+                              label: Text(
+                                categoryLabel[index],
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: controller.categoryPosition == index
+                                        ? Colors.white
+                                        : Colors.black),
+                              ),
+                              onPressed: () {
+                                controller.onChange(index.toDouble());
+                              },
                             ),
                           );
                         },
